@@ -381,7 +381,7 @@
         this.main = main;
         this.health = 5;
         this.image = new Image();
-        this.image.src = "assets/Turret.bmp";
+        this.image.src = "assets/turret.png";
 
         this.dis = Math.sqrt(x * x+y * y);
         this.angle = 0;
@@ -457,7 +457,7 @@
         this.main = main;
         this.health = 15;
         this.image = new Image();
-        this.image.src = "assets/Armor.bmp";
+        this.image.src = "assets/armor.png";
 
         this.dis = Math.sqrt(x * x + y * y);
         this.angle = 0;
