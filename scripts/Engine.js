@@ -34,8 +34,8 @@
         buttons[3] = new button(10, 260, "Buy Armor", 5);
 
         chats = new Chat("Queen Davida: <To be added>", 5);
-        Shot = new sound("Images/Shot.mp3");
-        Theme = new sound("Images/To Space.mp3");
+        Shot = new sound("assets/Shot.mp3");
+        Theme = new sound("assets/To Space.mp3");
     }
 
     function sound(src) {   //Sound elements
@@ -381,7 +381,7 @@
         this.main = main;
         this.health = 5;
         this.image = new Image();
-        this.image.src = "Images/Turret.bmp";
+        this.image.src = "assets/Turret.bmp";
 
         this.dis = Math.sqrt(x * x+y * y);
         this.angle = 0;
@@ -457,7 +457,7 @@
         this.main = main;
         this.health = 15;
         this.image = new Image();
-        this.image.src = "Images/Armor.bmp";
+        this.image.src = "assets/Armor.bmp";
 
         this.dis = Math.sqrt(x * x + y * y);
         this.angle = 0;
