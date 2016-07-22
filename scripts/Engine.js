@@ -34,8 +34,8 @@
         buttons[3] = new button(10, 260, "Buy Armor", 5);
 
         chats = new Chat("Queen Davida: <To be added>", 5);
-        Shot = new sound("assets/Shot.mp3");
-        Theme = new sound("assets/To Space.mp3");
+        Shot = new sound("assets/shot.mp3");
+        Theme = new sound("assets/to_space.mp3");
     }
 
     function sound(src) {   //Sound elements
