@@ -17,7 +17,7 @@ var shots = 1;
 var Shot;
 var Theme;
 
-function startgame() {
+function startGame() {
     Area.start();
 
     a = new ShipCore(480, 270);
