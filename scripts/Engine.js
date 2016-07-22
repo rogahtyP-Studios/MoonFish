@@ -118,7 +118,7 @@
             })
             window.addEventListener('mousedown', function (e) {
                 fire = true;
-                Explode(a.turrets[0]);
+                explode(a.turrets[0]);
             })
             window.addEventListener('mouseup', function (e) {
                 fire = false;
@@ -686,7 +686,7 @@
         if (!pause) {
             Area.clear();
             move();
-            ParticleManager.update();
+            particleManager.update();
             a.update();
 
             

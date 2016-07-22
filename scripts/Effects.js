@@ -1,21 +1,17 @@
-﻿function Explode(block) {
+﻿function explode(block) {
     for (var i = 0; i < 100; i++) {
-        ParticleManager.particles.push(new Particle(block.x + a.x + 480, block.y + a.y + 270));
+        particleManager.particles.push(new Particle(block.x + a.x + 480, block.y + a.y + 270));
     }
-
 }
 
-var ParticleManager = {
+var particleManager = {
     particles : [], 
-
-    update: function () {
-
+    update: function() {
         for (var i = 0; i < this.particles.length; i++) {
             this.particles[i].update();
         }
     }
-
-}
+};
 
 function Particle(x, y) {
     this.x = x;
