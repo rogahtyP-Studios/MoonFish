@@ -115,7 +115,6 @@ var Area = {
     
 }
 
-
 function Block(x, y) {
     this.x = x;
     this.y = y;
@@ -193,6 +192,10 @@ function Spawner(x, y, rate) {
     }
 }
 
+/* 
+Old Tank
+
+
 function Tank(x, y) {
     this.x = x;
     this.y = y;
@@ -265,7 +268,7 @@ function Tank(x, y) {
     }
 
 }
-
+*/
 
 function ShipCore(x, y) {       //Player ship core
     this.x = x;
@@ -485,7 +488,59 @@ function Armor(x,y,main) {
     }
 }
 
+function Thruster(x,y,main){
+     this.x = x;
+    this.y = y;
+    
+    this.main = main;
+    this.health = 15;
+    this.image = new Image();
+    this.image.src = "assets/thruster.png";
 
+    this.dis = Math.sqrt(x * x + y * y);
+    this.angle = 0;
+    this.pangle = Math.atan(y / x);     //Starting angle
+    if (this.x < -0.1) {
+        this.pangle += Math.PI;
+    }
+
+    this.time = 0;
+    this.update = function () {
+        if (this.health > 0) {
+            this.angle = this.main.angle;
+
+            this.x = this.dis * Math.cos(this.main.angle + this.pangle);
+            this.y = this.dis * Math.sin(this.main.angle + this.pangle);
+            
+
+            ctx = Area.context;
+            ctx.save();
+            ctx.translate(480 + this.x, 270 + this.y);
+            ctx.rotate(this.main.angle);
+            ctx.fillStyle = "red";
+            ctx.drawImage(this.image, -5, -5, 10, 10)
+            ctx.restore();
+
+            for (var i = 0; i < bullets.length; i++) {
+                if (Math.abs((bullets[i].x - 480 - a.x)) < 5 && Math.abs((bullets[i].y - 270 - a.y)) < 5) {
+                    bullets[i].time += 1000;
+                    if (bullets[i].owner != this.main) {            //Bullets grouped by main
+                        if (this.main.shields > 0) {
+                            this.main.shields--;
+                        } else {
+                            this.health--;
+                        }
+
+                    } else {
+                        //Friendly Fire
+                    }
+                    bullets[i].update();
+                }
+            }
+
+        }
+    }
+}
 function Bullet(xpos, ypos, speed, x, y, owner) {       //Owners: 0 = Player 1 = Enemy
     this.x = xpos;
     this.y = ypos;
@@ -515,21 +570,6 @@ function Bullet(xpos, ypos, speed, x, y, owner) {       //Owners: 0 = Player 1 =
 
 
     }
-}
-
-function reload() {     //Reload ~May bring into updateGame()
-    canFire = true;
-}
-
-function move() {       //Move
-    var move = 0;
-    if (keys[37]) { a.vangle -= 20 / (a.turrets.length + a.blocks.length); }
-    if (keys[38]) { move = -1; }
-    if (keys[39]) { a.vangle += 20 / (a.turrets.length + a.blocks.length); }
-    if (keys[40]) { move = 1; }
-
-    a.vx += move * Math.sin(a.angle) / (a.turrets.length + a.blocks.length);
-    a.vy -= move * Math.cos(a.angle) / (a.turrets.length + a.blocks.length);
 }
 
 var selection = -1;      //0 is cannon; 1 is armor
@@ -661,6 +701,22 @@ function button(x, y, text,price) {     //Used in shop
     }
 }
 
+function reload() {     //Reload ~May bring into updateGame()
+    canFire = true;
+}
+
+var thrust = 0;
+function move() {       //Move
+
+    var move = 0;
+    if (keys[37]) { a.vangle -= 20 / (a.turrets.length + a.blocks.length); }
+    if (keys[38]) { move = -1 * thrust; }
+    if (keys[39]) { a.vangle += 20 / (a.turrets.length + a.blocks.length); }
+    if (keys[40]) { move = 1 * thrust; }
+
+    a.vx += move * Math.sin(a.angle) / (a.turrets.length + a.blocks.length);
+    a.vy -= move * Math.cos(a.angle) / (a.turrets.length + a.blocks.length);
+}
 function updateGame() {     //Update all events
     Theme.play();
     time++;     //Used for time based events
@@ -683,7 +739,7 @@ function updateGame() {     //Update all events
             terrain[i].update();
         }
 
-        for (var i = 0; i < spawners.length; i++) {      //Update spawnrs
+        for (var i = 0; i < spawners.length; i++) {      //Update spawners
             spawners[i].update();
         }
 
